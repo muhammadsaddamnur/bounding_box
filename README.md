@@ -74,7 +74,7 @@ class MyApp extends StatelessWidget {
       home: BoundingBox(
         initialSize: const Size(150, 150),
         initialPosition: const Offset(150, 200),
-        builder: (size) {
+        builder: (size, position, rotation) {
           return Container(
             width: size.width,
             height: size.height,
