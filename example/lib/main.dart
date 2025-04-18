@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         initialSize: const Size(150, 150),
         initialPosition: const Offset(150, 200),
         // enable: false,
-        builder: (size) {
+        builder: (size, position, rotation) {
           return Container(
             width: size.width,
             height: size.height,

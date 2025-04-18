@@ -1,3 +1,7 @@
+## 0.0.2
+
+* Return callback position & rotation
+
 ## 0.0.1
 
 * Initial release with draggable, resizable, and rotatable widget.

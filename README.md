@@ -46,7 +46,7 @@ BoundingBox({
 ---
 ### 📌 Required
 
--   `builder`: A function that takes the current `Size` and returns a widget.
+-   `builder`: A function that takes the current `Size`, `Position`, `Rotation` and returns a widget.
     
 -   `initialPosition`: Starting position of the bounding box.
     
@@ -98,7 +98,7 @@ topLeft      topCenter      topRight
 
 centerLeft                 centerRight
 
-bottomLeft  bottomCenter  bottomRight` 
+bottomLeft  bottomCenter  bottomRight 
 ```
 
 A rotate handle is positioned above `topCenter`.

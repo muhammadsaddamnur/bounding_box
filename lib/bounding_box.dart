@@ -29,7 +29,7 @@ class BoundingBox extends StatefulWidget {
   });
 
   /// A required builder function that takes the current size and returns a widget.
-  final Widget Function(Size size) builder;
+  final Widget Function(Size size, Offset position, double rotation) builder;
 
   /// Whether the bouding_box functionalities are enabled.
   final bool enable;
@@ -217,7 +217,7 @@ class _BoundingBoxState extends State<BoundingBox> {
             Positioned(
               left: center.dx - size.width / 2,
               top: center.dy - size.height / 2,
-              child: widget.builder(size),
+              child: widget.builder(size, position, rotation),
             ),
           ],
         ),
@@ -237,7 +237,7 @@ class _BoundingBoxState extends State<BoundingBox> {
               top: center.dy - size.height / 2,
               child: Transform.rotate(
                 angle: rotation,
-                child: widget.builder(size),
+                child: widget.builder(size, position, rotation),
               ),
             ),
 
