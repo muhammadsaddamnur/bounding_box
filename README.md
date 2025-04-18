@@ -22,7 +22,7 @@ The `BoundingBox` is a custom Flutter widget that allows you to **drag**, **resi
 
 ```dart
 BoundingBox({
-  required Widget Function(Size size) builder,
+  required Widget Function(Size size, Offset position, double rotation) builder,
   required Offset initialPosition,
   required Size initialSize,
   bool enable = true,
