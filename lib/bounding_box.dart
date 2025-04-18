@@ -10,6 +10,7 @@ class BoundingBox extends StatefulWidget {
     required this.builder,
     required this.initialPosition,
     required this.initialSize,
+    this.initialRotation,
     this.enable = true,
     this.handleResizeSize,
     this.handleRotateSize,
@@ -39,6 +40,9 @@ class BoundingBox extends StatefulWidget {
 
   /// The initial size of the widget (width and height).
   final Size initialSize;
+
+  /// The initial rotation of the widget.
+  final double? initialRotation;
 
   /// The size (diameter) of the resize handle.
   final double? handleResizeSize;
@@ -100,6 +104,7 @@ class _BoundingBoxState extends State<BoundingBox> {
   void initState() {
     position = widget.initialPosition;
     size = widget.initialSize;
+    rotation = widget.initialRotation ?? 0;
     if (widget.handleResizeSize != null) handleSize = widget.handleResizeSize!;
     super.initState();
   }
