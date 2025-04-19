@@ -25,6 +25,7 @@ BoundingBox({
   required Widget Function(Size size, Offset position, double rotation) builder,
   required Offset initialPosition,
   required Size initialSize,
+  double? initialRotation,
   bool enable = true,
   double? handleResizeSize,
   double? handleRotateSize,

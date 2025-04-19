@@ -1,3 +1,9 @@
+## 0.0.3
+
+* add new constructor `initialRotation`
+* [FIX] set transparent background for disabled bounding box
+* update readme
+
 ## 0.0.2
 
 * Return callback position & rotation
