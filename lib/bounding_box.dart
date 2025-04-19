@@ -223,7 +223,10 @@ class _BoundingBoxState extends State<BoundingBox> {
             Positioned(
               left: center.dx - size.width / 2,
               top: center.dy - size.height / 2,
-              child: widget.builder(size, position, rotation),
+              child: Transform.rotate(
+                angle: rotation,
+                child: widget.builder(size, position, rotation),
+              ),
             ),
           ],
         ),
