@@ -1,3 +1,7 @@
+## 0.0.4
+
+* [FIX] fix transform rotate when bounding box is disable
+
 ## 0.0.3
 
 * add new constructor `initialRotation`

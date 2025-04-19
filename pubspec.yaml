@@ -1,6 +1,6 @@
 name: bounding_box
 description: "Flutter widget that allows you to drag, resize, and rotate."
-version: 0.0.3
+version: 0.0.4
 homepage: 'https://github.com/muhammadsaddamnur'
 
 environment:
