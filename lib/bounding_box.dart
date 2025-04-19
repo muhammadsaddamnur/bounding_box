@@ -217,6 +217,7 @@ class _BoundingBoxState extends State<BoundingBox> {
   Widget build(BuildContext context) {
     if (widget.enable == false) {
       return Material(
+        color: Colors.transparent,
         child: Stack(
           children: [
             Positioned(
@@ -232,6 +233,7 @@ class _BoundingBoxState extends State<BoundingBox> {
     final handles = getHandlePositions();
 
     return Material(
+      color: Colors.transparent,
       child: GestureDetector(
         onPanUpdate: (details) => setState(() => position += details.delta),
         child: Stack(
