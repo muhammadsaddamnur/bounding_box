@@ -7,6 +7,7 @@ part 'bounding_box_controller.g.dart';
 const double defaultActionSize = 20;
 
 @JsonSerializable(fieldRename: FieldRename.snake)
+// ignore: must_be_immutable
 class BoundingBoxController extends ChangeNotifier with EquatableMixin {
   // Core properties
   @OffsetConverter()
