@@ -11,6 +11,8 @@
 
 The `BoundingBox` is a custom Flutter widget that allows you to **drag**, **resize**, and **rotate** any widget with a bounding box overlay. It's useful for building design tools, image editors, diagram creators, and other interactive visual UIs.
 
+
+Example [DEMO](https://bounding-box-example.vercel.app/) 
   
 
 ---
