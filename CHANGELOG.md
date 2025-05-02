@@ -1,3 +1,10 @@
+## 0.1.0
+* [FEATURE] Added support for moving bounding box using a draggable point.
+* [FEATURE] Added MouseRegion support for web and desktop platforms.
+* [FEATURE] Added support for multiple bounding boxes on a single screen.
+* [FIX] Fixed position update issues when moving after rotation.
+* [REFACTOR] Introduced a controller and refactored bounding box usage pattern.
+
 ## 0.0.4
 
 * [FIX] fix transform rotate when bounding box is disable

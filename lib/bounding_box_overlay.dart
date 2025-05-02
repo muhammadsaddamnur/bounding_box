@@ -190,12 +190,93 @@ class _BoundingBoxOverlayState extends State<BoundingBoxOverlay> {
     });
   }
 
+  List actionWidget() {
+    return [
+      if (_controller.enableRotate == true) ...[
+        MouseRegion(
+          cursor: SystemMouseCursors.grab,
+          child: GestureDetector(
+            onPanStart: _onRotateStart,
+            onPanUpdate: _onRotateUpdate,
+            onTap: widget.onTap,
+            child:
+                _controller.customHandleRotate ??
+                Container(
+                  width: widget.controller?.actionSize ?? defaultActionSize,
+                  height: widget.controller?.actionSize ?? defaultActionSize,
+                  decoration: BoxDecoration(
+                    color:
+                        _controller.handleRotateBackgroundColor ?? Colors.white,
+                    border: Border.all(
+                      color: _controller.handleRotateStrokeColor ?? Colors.blue,
+                      width: _controller.handleRotateStrokeWidth ?? 1,
+                    ),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Center(
+                    child:
+                        _controller.rotateIcon ??
+                        const Icon(
+                          Icons.rotate_right,
+                          size: 12,
+                          color: Colors.blue,
+                        ),
+                  ),
+                ),
+          ),
+        ),
+      ],
+      if (_controller.enableMove == true) ...[
+        SizedBox(width: 5),
+        MouseRegion(
+          cursor: SystemMouseCursors.move,
+          child: GestureDetector(
+            onPanStart: (d) {
+              dragStart = d.globalPosition;
+              dragBase = _controller.position;
+            },
+            onPanUpdate: (d) {
+              if (dragStart == null || dragBase == null) return;
+              setState(() {
+                _controller.update(
+                  newPosition: dragBase! + (d.globalPosition - dragStart!),
+                );
+              });
+            },
+            child:
+                _controller.customHandleMove ??
+                Container(
+                  width: widget.controller?.actionSize ?? defaultActionSize,
+                  height: widget.controller?.actionSize ?? defaultActionSize,
+                  decoration: BoxDecoration(
+                    color:
+                        _controller.handleMoveBackgroundColor ?? Colors.white,
+                    border: Border.all(
+                      color: _controller.handleMoveStrokeColor ?? Colors.blue,
+                      width: _controller.handleMoveStrokeWidth ?? 1,
+                    ),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Center(
+                    child:
+                        _controller.moveIcon ??
+                        const Icon(
+                          Icons.drag_indicator_rounded,
+                          size: 12,
+                          color: Colors.blue,
+                        ),
+                  ),
+                ),
+          ),
+        ),
+      ],
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     final handles = getHandlePositions();
-    final handleSize = _controller.handleResizeSize ?? 14.0;
-    final rotateSize = _controller.handleRotateSize ?? handleSize;
-    final moveSize = _controller.handleMoveSize ?? handleSize;
+    final actionSize = widget.controller?.actionSize ?? defaultActionSize;
 
     return SizedBox.expand(
       child: Stack(
@@ -205,24 +286,23 @@ class _BoundingBoxOverlayState extends State<BoundingBoxOverlay> {
           Positioned(
             left: _controller.position.dx,
             top: _controller.position.dy,
-            child: GestureDetector(
-              onPanStart: (d) {
-                if (widget.onTap != null) widget.onTap!();
-                dragStart = d.globalPosition;
-                dragBase = _controller.position;
-              },
-              onPanUpdate: (d) {
-                if (dragStart == null || dragBase == null) return;
-                setState(() {
-                  _controller.update(
-                    newPosition: dragBase! + (d.globalPosition - dragStart!),
-                  );
-                });
-              },
-              onTap: widget.onTap,
-              child: Transform.rotate(
-                angle: _controller.rotation,
-                alignment: Alignment.center,
+            child: Transform.rotate(
+              angle: _controller.rotation,
+              child: GestureDetector(
+                onPanStart: (d) {
+                  if (widget.onTap != null) widget.onTap!();
+                  dragStart = d.globalPosition;
+                  dragBase = _controller.position;
+                },
+                onPanUpdate: (d) {
+                  if (dragStart == null || dragBase == null) return;
+                  setState(() {
+                    _controller.update(
+                      newPosition: dragBase! + (d.globalPosition - dragStart!),
+                    );
+                  });
+                },
+                onTap: widget.onTap,
                 child: widget.builder(
                   _controller.size,
                   _controller.position,
@@ -261,8 +341,8 @@ class _BoundingBoxOverlayState extends State<BoundingBoxOverlay> {
             // Resize handles
             for (int i = 0; i < handles.length; i++)
               Positioned(
-                left: handles[i].dx - handleSize / 2,
-                top: handles[i].dy - handleSize / 2,
+                left: handles[i].dx - actionSize / 2,
+                top: handles[i].dy - actionSize / 2,
                 child: MouseRegion(
                   cursor: _mouseSizeTranslation(i),
                   child: GestureDetector(
@@ -270,8 +350,8 @@ class _BoundingBoxOverlayState extends State<BoundingBoxOverlay> {
                     child:
                         _controller.customHandleResize ??
                         Container(
-                          width: handleSize,
-                          height: handleSize,
+                          width: actionSize,
+                          height: actionSize,
                           decoration: BoxDecoration(
                             color:
                                 _controller.handleResizeBackgroundColor ??
@@ -293,103 +373,16 @@ class _BoundingBoxOverlayState extends State<BoundingBoxOverlay> {
             Positioned(
               left:
                   center.dx -
-                  ((_controller.enableRotate == true ? rotateSize : 0) +
-                          (_controller.enableMove == true ? moveSize + 5 : 0)) /
+                  ((_controller.enableRotate == true ? actionSize : 0) +
+                          (_controller.enableMove == true
+                              ? actionSize + 5
+                              : 0)) /
                       2,
               top:
                   center.dy -
                   _controller.size.height / 2 -
                   (_controller.handlePosition ?? 40),
-              child: Row(
-                children: [
-                  if (_controller.enableRotate == true) ...[
-                    MouseRegion(
-                      cursor: SystemMouseCursors.grab,
-                      child: GestureDetector(
-                        onPanStart: _onRotateStart,
-                        onPanUpdate: _onRotateUpdate,
-                        onTap: widget.onTap,
-                        child:
-                            _controller.customHandleRotate ??
-                            Container(
-                              width: rotateSize,
-                              height: rotateSize,
-                              decoration: BoxDecoration(
-                                color:
-                                    _controller.handleRotateBackgroundColor ??
-                                    Colors.white,
-                                border: Border.all(
-                                  color:
-                                      _controller.handleRotateStrokeColor ??
-                                      Colors.blue,
-                                  width:
-                                      _controller.handleRotateStrokeWidth ?? 1,
-                                ),
-                                shape: BoxShape.circle,
-                              ),
-                              child: Center(
-                                child:
-                                    _controller.rotateIcon ??
-                                    const Icon(
-                                      Icons.rotate_right,
-                                      size: 12,
-                                      color: Colors.blue,
-                                    ),
-                              ),
-                            ),
-                      ),
-                    ),
-                  ],
-                  if (_controller.enableMove == true) ...[
-                    SizedBox(width: 5),
-                    MouseRegion(
-                      cursor: SystemMouseCursors.move,
-                      child: GestureDetector(
-                        onPanStart: (d) {
-                          dragStart = d.globalPosition;
-                          dragBase = _controller.position;
-                        },
-                        onPanUpdate: (d) {
-                          if (dragStart == null || dragBase == null) return;
-                          setState(() {
-                            _controller.update(
-                              newPosition:
-                                  dragBase! + (d.globalPosition - dragStart!),
-                            );
-                          });
-                        },
-                        child:
-                            _controller.customHandleMove ??
-                            Container(
-                              width: moveSize,
-                              height: moveSize,
-                              decoration: BoxDecoration(
-                                color:
-                                    _controller.handleMoveBackgroundColor ??
-                                    Colors.white,
-                                border: Border.all(
-                                  color:
-                                      _controller.handleMoveStrokeColor ??
-                                      Colors.blue,
-                                  width: _controller.handleMoveStrokeWidth ?? 1,
-                                ),
-                                shape: BoxShape.circle,
-                              ),
-                              child: Center(
-                                child:
-                                    _controller.moveIcon ??
-                                    const Icon(
-                                      Icons.drag_indicator_rounded,
-                                      size: 12,
-                                      color: Colors.blue,
-                                    ),
-                              ),
-                            ),
-                      ),
-                    ),
-                  ],
-                ],
-              ),
+              child: Row(children: [...actionWidget()]),
             ),
           ],
         ],

@@ -17,9 +17,7 @@ BoundingBoxController _$BoundingBoxControllerFromJson(
   enable: json['enable'] as bool? ?? false,
   enableRotate: json['enable_rotate'] as bool? ?? true,
   enableMove: json['enable_move'] as bool? ?? true,
-  handleResizeSize: (json['handle_resize_size'] as num?)?.toDouble(),
-  handleRotateSize: (json['handle_rotate_size'] as num?)?.toDouble(),
-  handleMoveSize: (json['handle_move_size'] as num?)?.toDouble(),
+  actionSize: (json['action_size'] as num?)?.toDouble() ?? defaultActionSize,
   handleResizeBackgroundColor: const ColorConverter().fromJson(
     (json['handle_resize_background_color'] as num?)?.toInt(),
   ),
@@ -59,9 +57,7 @@ Map<String, dynamic> _$BoundingBoxControllerToJson(
   'enable': instance.enable,
   'enable_rotate': instance.enableRotate,
   'enable_move': instance.enableMove,
-  'handle_resize_size': instance.handleResizeSize,
-  'handle_rotate_size': instance.handleRotateSize,
-  'handle_move_size': instance.handleMoveSize,
+  'action_size': instance.actionSize,
   'handle_resize_background_color': const ColorConverter().toJson(
     instance.handleResizeBackgroundColor,
   ),

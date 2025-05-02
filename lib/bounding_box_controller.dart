@@ -4,6 +4,8 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'bounding_box_controller.g.dart';
 
+const double defaultActionSize = 20;
+
 @JsonSerializable(fieldRename: FieldRename.snake)
 class BoundingBoxController extends ChangeNotifier with EquatableMixin {
   // Core properties
@@ -17,9 +19,7 @@ class BoundingBoxController extends ChangeNotifier with EquatableMixin {
   // Handles and customization
   bool? enableRotate;
   bool? enableMove;
-  double? handleResizeSize;
-  double? handleRotateSize;
-  double? handleMoveSize;
+  double actionSize;
 
   // Colors
   @ColorConverter()
@@ -67,9 +67,7 @@ class BoundingBoxController extends ChangeNotifier with EquatableMixin {
     this.enable = false,
     this.enableRotate = true,
     this.enableMove = true,
-    this.handleResizeSize,
-    this.handleRotateSize,
-    this.handleMoveSize,
+    this.actionSize = defaultActionSize,
     this.handleResizeBackgroundColor,
     this.handleResizeStrokeColor,
     this.handleRotateBackgroundColor,
@@ -98,9 +96,7 @@ class BoundingBoxController extends ChangeNotifier with EquatableMixin {
     bool? newEnable,
     bool? newEnableRotate,
     bool? newEnableMove,
-    double? newHandleResizeSize,
-    double? newHandleRotateSize,
-    double? newHandleMoveSize,
+    double? newActionSize,
     Color? newHandleResizeBackgroundColor,
     Color? newHandleResizeStrokeColor,
     Color? newHandleRotateBackgroundColor,
@@ -146,18 +142,8 @@ class BoundingBoxController extends ChangeNotifier with EquatableMixin {
       enableMove = newEnableMove;
       changed = true;
     }
-    if (newHandleResizeSize != null &&
-        newHandleResizeSize != handleResizeSize) {
-      handleResizeSize = newHandleResizeSize;
-      changed = true;
-    }
-    if (newHandleRotateSize != null &&
-        newHandleRotateSize != handleRotateSize) {
-      handleRotateSize = newHandleRotateSize;
-      changed = true;
-    }
-    if (newHandleMoveSize != null && newHandleMoveSize != handleMoveSize) {
-      handleMoveSize = newHandleMoveSize;
+    if (newActionSize != null && newActionSize != actionSize) {
+      actionSize = newActionSize;
       changed = true;
     }
     if (newHandleResizeBackgroundColor != null &&
@@ -263,9 +249,7 @@ class BoundingBoxController extends ChangeNotifier with EquatableMixin {
     enable,
     enableRotate,
     enableMove,
-    handleResizeSize,
-    handleRotateSize,
-    handleMoveSize,
+    actionSize,
     handleResizeBackgroundColor,
     handleResizeStrokeColor,
     handleRotateBackgroundColor,

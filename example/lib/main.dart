@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:bounding_box/bounding_box.dart';
@@ -43,9 +42,7 @@ class _MyAppState extends State<MyApp> {
       "enable": false,
       "enable_rotate": true,
       "enable_move": true,
-      "handle_resize_size": null,
-      "handle_rotate_size": null,
-      "handle_move_size": null,
+      "action_size": null,
       "handle_resize_background_color": null,
       "handle_resize_stroke_color": null,
       "handle_rotate_background_color": null,
@@ -66,9 +63,7 @@ class _MyAppState extends State<MyApp> {
       "enable": false,
       "enable_rotate": true,
       "enable_move": true,
-      "handle_resize_size": null,
-      "handle_rotate_size": null,
-      "handle_move_size": null,
+      "action_size": null,
       "handle_resize_background_color": null,
       "handle_resize_stroke_color": null,
       "handle_rotate_background_color": null,
